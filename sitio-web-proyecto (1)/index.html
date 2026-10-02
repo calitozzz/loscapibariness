@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Problemas del Plantel Escolar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(180deg, #eaf4fb 0%, #f9f9f9 40%);
+            color: #333;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* ---------- Encabezado con imagen ---------- */
+        .hero {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,64,128,0.25) 0%, rgba(0,64,128,0.75) 100%);
+        }
+
+        .hero-text {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 2.6rem;
+            font-weight: 800;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .hero-text p {
+            margin: 10px 0 0;
+            font-size: 1.15rem;
+            font-style: italic;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+        }
+
+        .hero-badge {
+            background: #ffd54f;
+            color: #7a5c00;
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 4px 14px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ---------- Contenedor principal ---------- */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 25px 60px;
+        }
+
+        /* ---------- Tarjetas de problema ---------- */
+        .problem {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,90,156,0.12);
+            margin-bottom: 35px;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .problem:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0,90,156,0.22);
+        }
+
+        .problem:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .problem img {
+            width: 100%;
+            max-width: 320px;
+            height: 220px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .problem-content {
+            flex: 1;
+            min-width: 260px;
+            padding: 25px 30px;
+        }
+
+        .problem h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #004080;
+            margin: 0 0 12px;
+            font-size: 1.3rem;
+            line-height: 1.35;
+        }
+
+        .num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #005a9c, #0078d4);
+            color: #fff;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .solution {
+            margin-top: 15px;
+            padding: 12px 16px;
+            background: #f0f9f1;
+            border-left: 4px solid #4caf50;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .solution strong {
+            color: #2e7d32;
+        }
+
+        /* ---------- Equipo de producción ---------- */
+        .team {
+            margin-bottom: 55px;
+            text-align: center;
+        }
+
+        .team h2 {
+            color: #004080;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 0 0 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .team .team-sub {
+            margin: 0 0 28px;
+            color: #5a7a99;
+            font-style: italic;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .member {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,90,156,0.12);
+            padding: 24px 22px;
+            border-top: 4px solid #ffd54f;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px rgba(0,90,156,0.22);
+        }
+
+        .member .avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #005a9c, #0078d4);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .member h3 {
+            margin: 0 0 4px;
+            color: #004080;
+            font-size: 1.05rem;
+        }
+
+        .member .rol {
+            display: block;
+            color: #0078d4;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .member p {
+            margin: 0 0 10px;
+            font-size: 0.92rem;
+        }
+
+        .member .aporte {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: #f0f9f1;
+            border-left: 4px solid #4caf50;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem;
+        }
+
+        .member .aporte strong {
+            color: #2e7d32;
+        }
+
+        /* ---------- Cita / introducción ---------- */
+        .intro {
+            margin-top: 50px;
+            background: linear-gradient(135deg, #005a9c, #0078d4);
+            color: #fff;
+            padding: 30px 35px;
+            border-radius: 14px;
+            font-style: italic;
+            box-shadow: 0 6px 20px rgba(0,90,156,0.3);
+            position: relative;
+        }
+
+        .intro p {
+            margin: 0;
+        }
+
+        /* ---------- Mapa semántico ---------- */
+        .mapa {
+            margin-top: 50px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,90,156,0.12);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .mapa h2 {
+            color: #004080;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 20px;
+        }
+
+        .mapa img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* ---------- Pie de página ---------- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #004080;
+            color: #cfe6ff;
+            font-size: 0.9rem;
+        }
+
+        /* ---------- Portada del equipo ---------- */
+        .portada-equipo {
+            display: flex;
+            justify-content: center;
+            padding: 0 16px 40px;
+        }
+
+        .portada-equipo img {
+            width: 100%;
+            max-width: 520px;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 64, 128, 0.18);
+        }
+
+
+        /* ---------- Escaleta y créditos ---------- */
+        .escaleta {
+            margin-top: 35px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 16px rgba(0,90,156,0.12);
+            padding: 30px;
+        }
+
+        .escaleta > h2 {
+            color: #004080;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 24px;
+            text-align: center;
+        }
+
+        .escaleta-item {
+            padding: 0 0 18px 18px;
+            margin-bottom: 18px;
+            border-left: 4px solid #0078d4;
+        }
+
+        .escaleta-item h3 {
+            color: #004080;
+            font-size: 1.05rem;
+            margin: 0 0 6px;
+        }
+
+        .escaleta-item h3 span {
+            color: #0078d4;
+            font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .escaleta-item p {
+            margin: 0;
+        }
+
+        .roles {
+            margin-top: 28px;
+            padding: 20px 22px;
+            background: #f0f9f1;
+            border-left: 4px solid #4caf50;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .roles p {
+            margin: 0 0 8px;
+        }
+
+        .roles p:last-child {
+            margin-bottom: 0;
+        }
+
+        .roles strong {
+            color: #2e7d32;
+            text-transform: capitalize;
+        }
+
+        /* ---------- Responsivo ---------- */
+        @media (max-width: 640px) {
+            .hero { height: 240px; }
+            .hero-text h1 { font-size: 1.8rem; }
+            .problem img { max-width: 100%; height: 180px; }
+            .escaleta { padding: 24px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Encabezado con imagen decorativa -->
+    <header class="hero">
+        <img src="images/hero.jpg" alt="Patio de la escuela con estudiantes" />
+        <div class="hero-text">
+<span class="hero-badge">Voz estudiantil</span>
+            <h1>Nuestro Problema</h1>
+            <p>Cinco carencias urgentes de nuestro plantel y propuestas para resolverlas</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Portada del equipo -->
+        <div class="portada-equipo">
+            <img src="images/capibarines.png" alt="Los Capibarines, unidos por Zacachimalpa: Camila Ivania Herrera Rosales, Carlos Garcia Cruz, Santiago Varillas Silva, Eduardo Tototzintle Nieto y Santiago Rodriguez Hernandez" />
+        </div>
+
+        <!-- Equipo de producción -->
+        <section class="team">
+<h2>Casa Productora · Equipo de Trabajo</h2>
+            <p class="team-sub">Cada integrante aportó su talento para construir este proyecto</p>
+            <div class="team-grid">
+
+                <div class="member">
+                    <span class="avatar">1</span>
+                    <h3>Integrante 1</h3>
+                    <span class="rol">Identidad Visual</span>
+                    <p><strong>Responsabilidad:</strong> Digitalización del logotipo oficial, definición de la estética visual y redacción del lema de la casa productora.</p>
+                    <div class="aporte"><strong>Aporte clave:</strong> Su trabajo aportó a la página personalidad y una imagen profesional.</div>
+                </div>
+
+                <div class="member">
+                    <span class="avatar">2</span>
+                    <h3>Integrante 2</h3>
+                    <span class="rol">Redacción e Investigación Documental</span>
+                    <p><strong>Responsabilidad:</strong> Elaboración del ensayo académico, síntesis de las problemáticas escolares y validación de fuentes bajo la norma APA.</p>
+                    <div class="aporte"><strong>Aporte clave:</strong> Dio el sustento teórico y la información necesaria para que los textos sean claros, precisos y formales.</div>
+                </div>
+
+                <div class="member">
+                    <span class="avatar">3</span>
+                    <h3>Integrante 3</h3>
+                    <span class="rol">Diseño de Información y Recursos Semánticos</span>
+                    <p><strong>Responsabilidad:</strong> Conceptualización, estructura y elaboración gráfica del mapa semántico de problemas y soluciones.</p>
+                    <div class="aporte"><strong>Aporte clave:</strong> Transformó datos en un esquema visual atractivo y comprensible para cualquier lector que visite el sitio.</div>
+                </div>
+
+                <div class="member">
+                    <span class="avatar">4</span>
+                    <h3>Integrante 4</h3>
+                    <span class="rol">Guion y Planificación Audiovisual</span>
+                    <p><strong>Responsabilidad:</strong> Elaboración de la escaleta técnica para preproducción del cortometraje y asignación de créditos.</p>
+                    <div class="aporte"><strong>Aporte clave:</strong> Aportó el enfoque narrativo y la estructura visual indispensable para proyectar la solución de los problemas a través de medios audiovisuales.</div>
+                </div>
+
+                <div class="member">
+                    <span class="avatar">5</span>
+                    <h3>Integrante 5</h3>
+                    <span class="rol">Desarrollo, Montaje y Maquetación Web</span>
+                    <p><strong>Responsabilidad:</strong> Estructuración de la plataforma digital, integración de contenidos multimedia y optimización de la navegación.</p>
+                    <div class="aporte"><strong>Aporte clave:</strong> Logró que todos los elementos textuales y visuales estuvieran conectados en una interfaz funcional, accesible y estética.</div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="problem">
+            <img src="images/agua.jpg" alt="Llave de agua goteando sobre una mano con suelo agrietado por la sequía" />
+            <div class="problem-content">
+<h2><span class="num">1</span> Desabasto de agua potable y saneamiento</h2>
+                <p>La falta constante de agua afecta a toda la comunidad escolar al limitar la higiene de los sanitarios y la limpieza del plantel.</p>
+                <div class="solution"><strong>Propuesta:</strong> mejorar el almacenamiento con cisternas o tinacos y promover el cuidado responsable del recurso.</div>
+            </div>
+        </div>
+
+        <div class="problem">
+            <img src="images/techado.jpg" alt="Vista aérea del edificio del plantel con la cancha escolar" />
+            <div class="problem-content">
+<h2><span class="num">2</span> Ausencia de techado ante el sol y altas temperaturas</h2>
+                <p>La falta de domo o sombra en el patio perjudica a los alumnos en sus actividades físicas por la radiación solar directa.</p>
+                <div class="solution"><strong>Propuesta:</strong> instalar techados en las áreas de mayor convivencia escolar.</div>
+            </div>
+        </div>
+
+        <div class="problem">
+            <img src="images/descanso.jpg" alt="Estudiantes conviviendo dentro del salón de clases" />
+            <div class="problem-content">
+<h2><span class="num">3</span> Insuficiencia de áreas de descanso y convivencia</h2>
+                <p>Afecta a los estudiantes durante los recesos, ya que carecen de lugares dignos para sentarse a comer o convivir.</p>
+                <div class="solution"><strong>Propuesta:</strong> gestionar e instalar mesas, bancas y zonas limpias mediante el apoyo de autoridades y alumnos.</div>
+            </div>
+        </div>
+
+        <div class="problem">
+            <img src="images/calor.jpg" alt="Vegetación seca y basura en una zona exterior del plantel" />
+            <div class="problem-content">
+<h2><span class="num">4</span> Exposición prolongada al calor y fatiga térmica</h2>
+                <p>Las altas temperaturas en el aula afectan la salud y concentración de los alumnos, generando cansancio y dolores de cabeza.</p>
+                <div class="solution"><strong>Propuesta:</strong> sembrar árboles para generar sombra natural y optimizar la ventilación de los espacios.</div>
+            </div>
+        </div>
+
+        <div class="problem">
+            <img src="images/colaborativo.jpg" alt="Estudiantes conviviendo en las mesas del patio escolar" />
+            <div class="problem-content">
+<h2><span class="num">5</span> Falta de espacios para actividades escolares</h2>
+                <p>Limita el desarrollo académico y en equipo de la comunidad estudiantil al depender únicamente del pupitre tradicional.</p>
+                <div class="solution"><strong>Propuesta:</strong> crear zonas escolares para trabajos colaborativos, al igual que talleres.</div>
+            </div>
+        </div>
+
+        <div class="mapa">
+            <h2>Mapa semántico · Problemas y soluciones</h2>
+            <img src="images/mapa.png" alt="Mapa semántico con las cinco problemáticas del bachillerato y sus soluciones" />
+
+        <!-- Escaleta audiovisual y créditos -->
+        <section class="escaleta">
+            <h2>Escaleta audiovisual</h2>
+
+            <div class="escaleta-item">
+                <h3>Introducción <span>0:00-0:30</span></h3>
+                <p>Se presenta la situación general del bachillerato y se plantea que existen problemas de infraestructura y servicios que afectan a los estudiantes.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Problema 1: Falta de agua <span>0:30-1:20</span></h3>
+                <p>Se muestra o explica la dificultad que provoca la falta de agua en sanitarios y limpieza, se plantea mejorar el almacenamiento y fomentar el uso responsable.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Problema 2: Falta de techado <span>1:20-2:10</span></h3>
+                <p>Se aborda la exposición directa al sol y las altas temperaturas en el patio, se propone instalar un domo o estructuras que proporcionen sombra.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Problema 3: Falta de espacios de descanso <span>2:10-3:00</span></h3>
+                <p>Se explica que hacen falta lugares cómodos para sentarse, comer y convivir durante los recesos, se propone colocar bancas, mesas y acondicionar áreas comunes.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Problema 4: Altas temperaturas <span>3:00-3:50</span></h3>
+                <p>Se muestra cómo el calor puede provocar cansancio, dolor de cabeza y dificultades para concentrarse, se plantean árboles, áreas verdes y mejor ventilación.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Problema 5: Falta de espacios para actividades <span>3:50-4:40</span></h3>
+                <p>Se explica que existen pocas áreas destinadas a trabajos en equipo y actividades recreativas, se propone aprovechar y reorganizar espacios que estén en desuso.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Soluciones <span>4:40-5:20</span></h3>
+                <p>Se reúnen las propuestas principales: mejorar el suministro de agua, instalar techados, acondicionar áreas de descanso, crear áreas verdes y aprovechar espacios disponibles.</p>
+            </div>
+
+            <div class="escaleta-item">
+                <h3>Cierre <span>5:20-5:50</span></h3>
+                <p>Se plantea que mejorar estas condiciones requiere la participación de autoridades, docentes y estudiantes para construir un entorno escolar más digno y seguro.</p>
+            </div>
+
+            <div class="roles">
+                <p><strong>Carlos:</strong> Narrador y coordinador general</p>
+                <p><strong>Ivania:</strong> Encargada e investigadora de soluciones ambientales</p>
+                <p><strong>Eduardo:</strong> Encargado e investigador de problemas de agua</p>
+                <p><strong>Santiago Rodríguez:</strong> Investigador y encargado de infraestructura</p>
+                <p><strong>Santiago Varillas:</strong> Investigador y encargada de espacios comunes</p>
+            </div>
+        </section>
+
+        <div class="intro">
+            <p>La escuela es el espacio donde convivimos, aprendemos y nos formamos cada día. Sin embargo, en nuestro bachillerato enfrentamos carencias básicas de infraestructura y servicios que impactan directamente en nuestra salud, comodidad y rendimiento académico. Es por eso que presentamos cinco problemáticas urgentes del plantel junto con propuestas viables para transformar nuestro entorno en un lugar digno y seguro.</p>
+        </div>
+
+    </div>
+
+    <footer>
+Proyecto estudiantil · Transformemos nuestro plantel juntos
+    </footer>
+
+</body>
+</html>
